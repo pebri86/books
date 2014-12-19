@@ -94,6 +94,33 @@ $app -> get('/authors/:id', 'authenticate', function($id) {
 });
 
 /**
+ * Creating new asset in db
+ * method POST
+ * params - name,
+ * 			address
+ * url - /authors
+ */
+$app -> post('/authors', 'authenticate', function() use ($app) {
+	verifyRequiredParams(array('name', 'address'));
+
+	$response = array();
+	$data = new \Library\Model\Authors();
+
+	$result = $data -> add($_POST);
+
+	if ($result) {
+		$response["error"] = false;
+		$response["message"] = "Task created successfully";
+		echoRespnse(201, $response);
+	} else {
+		$response["error"] = true;
+		$response["message"] = "Failed to create task. Please try again";
+		echoRespnse(200, $response);
+	}
+});
+
+
+/**
  * Updating existing asset
  * method PUT
  * params 	name,
@@ -216,11 +243,11 @@ $app -> post('/books', 'authenticate', function() use ($app) {
  * Updating existing asset
  * method PUT
  * params 	title,
- description,
- author_id,
- publisher_id,
- year,
- isbn
+ * description,
+ * author_id,
+ * publisher_id,
+ * year,
+ * isbn
  * url - /books/:id
  */
 
@@ -305,6 +332,32 @@ $app -> get('/publishers/:id', 'authenticate', function($id) {
 		$response["error"] = true;
 		$response["message"] = "The requested resource doesn't exists";
 		echoRespnse(404, $response);
+	}
+});
+
+/**
+ * Creating new asset in db
+ * method POST
+ * params - name,
+ * 			address
+ * url - /publishers
+ */
+$app -> post('/publishers', 'authenticate', function() use ($app) {
+	verifyRequiredParams(array('name', 'address'));
+
+	$response = array();
+	$data = new \Library\Model\Publishers();
+
+	$result = $data -> add($_POST);
+
+	if ($result) {
+		$response["error"] = false;
+		$response["message"] = "Task created successfully";
+		echoRespnse(201, $response);
+	} else {
+		$response["error"] = true;
+		$response["message"] = "Failed to create task. Please try again";
+		echoRespnse(200, $response);
 	}
 });
 
