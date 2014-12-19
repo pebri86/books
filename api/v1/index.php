@@ -14,6 +14,7 @@ $app = new \Slim\Slim();
 /**
  * Adding Middle Layer to authenticate every request
  * Checking if the request has valid api key in the 'Authorization' header
+ * 
  */
 function authenticate(\Slim\Route $route) {
 	// Getting request headers
