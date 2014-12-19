@@ -56,6 +56,94 @@ function authenticate(\Slim\Route $route) {
 }
 
 /**
+ * Listing all authors
+ * method GET
+ * url /authors
+ */
+$app -> get('/authors', 'authenticate', function() {
+	$response = array();
+	$data = new \Library\Model\Authors();
+	$authors = $data -> getAll();
+
+	$response["error"] = false;
+	$response["authors"] = $authors;
+
+	echoRespnse(200, $response);
+});
+
+/**
+ * Listing single asset
+ * method GET
+ * url /authors/:id
+ * Will return 404 if the asset doesn't exist
+ */
+$app -> get('/authors/:id', 'authenticate', function($id) {
+	$response = array();
+	$data = new \Library\Model\Authors();
+	$author = $data -> getAuthor($id);
+
+	if ($author != NULL) {
+		$response["error"] = false;
+		$response["author"] = $author;
+		echoRespnse(200, $response);
+	} else {
+		$response["error"] = true;
+		$response["message"] = "The requested resource doesn't exists";
+		echoRespnse(404, $response);
+	}
+});
+
+/**
+ * Updating existing asset
+ * method PUT
+ * params 	name,
+ *			address
+ * url - /authors/:id
+ */
+
+$app -> put('/authors/:id', 'authenticate', function($id) use ($app) {
+	verifyRequiredParams(array('name', 'address'));
+
+	$response = array();
+	$data = new \Library\Model\Authors();
+
+	$name = $app -> request -> put('name');
+	$address = $app -> request -> put('address');
+	
+	$put_data = array('id' => $id, 'name' => $name, 'address' => $address);
+
+	$result = $data -> update($put_data);
+
+	if ($result) {
+		$response["error"] = false;
+		$response["message"] = "Task updated successfully";
+	} else {
+		$response["error"] = true;
+		$response["message"] = "Task failed to update. Please try again!";
+	}
+	echoRespnse(200, $response);
+});
+
+/**
+ * Deleting asset.
+ * method DELETE
+ * url /authors/:id
+ */
+$app -> delete('/authors/:id', 'authenticate', function($id) use ($app) {
+	$data = new \Library\Model\Authors();
+	$response = array();
+	$result = $data -> delete(id);
+	if ($result) {
+		$response["error"] = false;
+		$response["message"] = "Task deleted succesfully";
+	} else {
+		$response["error"] = true;
+		$response["message"] = "Task failed to delete. Please try again!";
+	}
+	echoRespnse(200, $response);
+});
+
+/**
  * Listing all books
  * method GET
  * url /books
@@ -82,7 +170,7 @@ $app -> get('/books/:id', 'authenticate', function($id) {
 	$data = new \Library\Model\Books();
 	$book = $data -> getBook($id);
 
-	if ($mesin != NULL) {
+	if ($book != NULL) {
 		$response["error"] = false;
 		$response["book"] = $book;
 		echoRespnse(200, $response);
@@ -93,15 +181,16 @@ $app -> get('/books/:id', 'authenticate', function($id) {
 	}
 });
 
+
 /**
  * Creating new asset in db
  * method POST
  * params - title,
- description,
- author_id,
- publisher_id,
- year,
- isbn
+ * description,
+ * author_id,
+ * publisher_id,
+ * year,
+ * isbn
  * url - /books
  */
 $app -> post('/books', 'authenticate', function() use ($app) {
@@ -180,6 +269,95 @@ $app -> delete('/books/:id', 'authenticate', function($id) use ($app) {
 	}
 	echoRespnse(200, $response);
 });
+
+/**
+ * Listing all publishers
+ * method GET
+ * url /publishers
+ */
+$app -> get('/publishers', 'authenticate', function() {
+	$response = array();
+	$data = new \Library\Model\Publishers();
+	$publishers = $data -> getAll();
+
+	$response["error"] = false;
+	$response["authors"] = $publishers;
+
+	echoRespnse(200, $response);
+});
+
+/**
+ * Listing single asset
+ * method GET
+ * url /publishers/:id
+ * Will return 404 if the asset doesn't exist
+ */
+$app -> get('/publishers/:id', 'authenticate', function($id) {
+	$response = array();
+	$data = new \Library\Model\Publishers();
+	$publisher = $data -> getPublisher($id);
+
+	if ($author != NULL) {
+		$response["error"] = false;
+		$response["publisher"] = $publisher;
+		echoRespnse(200, $response);
+	} else {
+		$response["error"] = true;
+		$response["message"] = "The requested resource doesn't exists";
+		echoRespnse(404, $response);
+	}
+});
+
+/**
+ * Updating existing asset
+ * method PUT
+ * params 	name,
+ *			address
+ * url - /publishers/:id
+ */
+
+$app -> put('/publishers/:id', 'authenticate', function($id) use ($app) {
+	verifyRequiredParams(array('name', 'address'));
+
+	$response = array();
+	$data = new \Library\Model\Publishers();
+
+	$name = $app -> request -> put('name');
+	$address = $app -> request -> put('address');
+	
+	$put_data = array('id' => $id, 'name' => $name, 'address' => $address);
+
+	$result = $data -> update($put_data);
+
+	if ($result) {
+		$response["error"] = false;
+		$response["message"] = "Task updated successfully";
+	} else {
+		$response["error"] = true;
+		$response["message"] = "Task failed to update. Please try again!";
+	}
+	echoRespnse(200, $response);
+});
+
+/**
+ * Deleting asset.
+ * method DELETE
+ * url /publishers/:id
+ */
+$app -> delete('/publishers/:id', 'authenticate', function($id) use ($app) {
+	$data = new \Library\Model\Publishers();
+	$response = array();
+	$result = $data -> delete(id);
+	if ($result) {
+		$response["error"] = false;
+		$response["message"] = "Task deleted succesfully";
+	} else {
+		$response["error"] = true;
+		$response["message"] = "Task failed to delete. Please try again!";
+	}
+	echoRespnse(200, $response);
+});
+
 
 /**
  * Verifying required params posted or not
