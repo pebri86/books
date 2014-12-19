@@ -1,6 +1,10 @@
 books
 =====
 
-website with slim api
+website with slim
 
-SLIM
+required:
+SLIM microframeworks
+
+design:
++ using API for accessing database
