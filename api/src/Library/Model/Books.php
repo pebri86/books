@@ -37,12 +37,12 @@ class Books {
 	}
 
 	public function getBook($id) {
-		$sql = "SELECT *.books,publisher.name,author.name 
+		$sql = "SELECT *.books,publishers.name,authors.name 
 				FROM books
-				INNER JOIN author
-				ON books.author_id = author.id
-				INNER JOIN publisher
-				ON books.publisher_id = publisher.id
+				INNER JOIN authors
+				ON books.author_id = authors.id
+				INNER JOIN publishers
+				ON books.publisher_id = publishers.id
 				WHERE id = :id LIMIT 1";
 		$query = \Library\Db::getInstance() -> prepare($sql);
 
@@ -53,7 +53,7 @@ class Books {
 	}
 
 	public function update($data) {
-		$query = \Library\Db::getInstance() -> prepare("UPDATE mesin 
+		$query = \Library\Db::getInstance() -> prepare("UPDATE books 
 	            SET 
 	                title = :title, 
 					description = :description,
@@ -88,31 +88,31 @@ class Books {
 	public function findByTitle($title) {
 		$sql = "SELECT * FROM books WHERE title LIKE %:title%";
 		$query = \Library\Db::getInstance() -> prepare($sql);
-		$data = array(':title' => $title, );
+		$data = array(':title' => $title);
 		$query -> execute($data);
 		return $query -> fetchAll(\PDO::FETCH_ASSOC);
 	}
 
 	public function findByAuthor($author) {
-		$sql = "SELECT *.books,author.name 
-	    	FROM books,author 
+		$sql = "SELECT *.books,authors.name 
+	    	FROM books,authors 
 	    	WHERE 
-	    		books.author_id = author.id AND
-	    		author.name LIKE %:author%";
+	    		books.author_id = authors.id AND
+	    		authors.name LIKE %:author%";
 		$query = \Library\Db::getInstance() -> prepare($sql);
-		$data = array(':author' => $author, );
+		$data = array(':author' => $author);
 		$query -> execute($data);
 		return $query -> fetchAll(\PDO::FETCH_ASSOC);
 	}
 
 	public function findByPublisher($publisher) {
-		$sql = "SELECT *.books,publisher.name 
-	    	FROM books,publisher 
+		$sql = "SELECT *.books,publishers.name 
+	    	FROM books,publishers 
 	    	WHERE 
-	    		books.publisher_id = publisher.id AND
-	    		publisher.name LIKE %:publisher%";
+	    		books.publisher_id = publishers.id AND
+	    		publishers.name LIKE %:publisher%";
 		$query = \Library\Db::getInstance() -> prepare($sql);
-		$data = array(':publisher' => $publisher, );
+		$data = array(':publisher' => $publisher);
 		$query -> execute($data);
 		return $query -> fetchAll(\PDO::FETCH_ASSOC);
 	}
