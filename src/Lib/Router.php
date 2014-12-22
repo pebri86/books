@@ -1,11 +1,11 @@
 <?php
-namespace Suggestotron;
+namespace Lib;
 
 class Router {
     protected $config;
     public function start($route)
     {
-        $this->config = \Suggestotron\Config::get('routes');
+        $this->config = \Lib\Config::get('routes');
 	if (empty($route) || $route == '/') {
 	    if (isset($this->config['default'])) {
 	        $route = $this->config['default'];
@@ -50,7 +50,7 @@ class Router {
 		        }
 		    }
 		}
-		catch (\Suggestotron\Controller\Exception $e) {
+		catch (\Lib\Controller\Exception $e) {
 		    $this->error();
 		}
 	}

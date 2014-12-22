@@ -1,7 +1,7 @@
 <?php
-namespace Suggestotron\Controller;
+namespace Lib\Controller;
 
-class Error extends \Suggestotron\Controller {
+class Error extends \Lib\Controller {
     public function indexAction($options)
     {
         header("HTTP/1.0 404 Not Found");

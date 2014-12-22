@@ -1,12 +1,12 @@
 <?php
-namespace Suggestotron;
+namespace Lib;
 
 class Db {
     static protected $instance = null;
 
     protected $connection = null;
     protected function __construct() {
-        $config = \Suggestotron\Config::get('database');
+        $config = \Lib\Config::get('database');
 
         $this->connection = new \PDO("mysql:host=" .$config['hostname']. ";dbname=" .$config['dbname'], $config['username'], $config['password']);
     }

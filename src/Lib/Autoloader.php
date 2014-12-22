@@ -1,10 +1,10 @@
 <?php
-namespace Suggestotron;
+namespace Lib;
 
 class Autoloader {
     public function load($className)
     {
-        $config = \Suggestotron\Config::get('autoload');
+        $config = \Lib\Config::get('autoload');
         
         $file = $config['class_path'] . '/' . str_replace("\\", "/", $className) . '.php';
     

@@ -1,5 +1,5 @@
 <?php
-namespace Suggestotron;
+namespace Lib;
 
 class Controller {
     protected $config;
@@ -7,8 +7,8 @@ class Controller {
 
     public function __construct()
     {
-        $this->config = \Suggestotron\Config::get('site');
-        $this->template = new \Suggestotron\Template($this->config['view_path'] . "/base.phtml");
+        $this->config = \Lib\Config::get('site');
+        $this->template = new \Lib\Template($this->config['view_path'] . "/base.phtml");
     }
 
 

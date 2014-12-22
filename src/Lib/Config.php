@@ -1,5 +1,5 @@
 <?php
-namespace Suggestotron;
+namespace Lib;
 
 class Config {
     static public $directory;
