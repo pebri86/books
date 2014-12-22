@@ -1,5 +1,5 @@
 <?php
 return array(
-    'class_path' => realpath('../src')
+    'class_path' => realpath('src')
 );
 ?>

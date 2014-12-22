@@ -1,6 +1,6 @@
 <?php
 return array(
     "title" => "Suggestotron",
-    'view_path' => realpath('../views')
+    'view_path' => realpath('views')
 );
 ?>

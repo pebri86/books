@@ -1,6 +1,6 @@
 <?php
 require_once 'src/Lib/Config.php';
-\Lib\Config::setDirectory('../config');
+\Lib\Config::setDirectory('config');
 
 $config = \Lib\Config::get('autoload');
 require_once $config['class_path'] . '/Lib/Autoloader.php';

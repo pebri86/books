@@ -1,17 +1,10 @@
 <?php
 return array(
-    'default' => '/topic/list',
+    'default' => '/page/home',
     'errors' => '/error/index',
     'routes' => array(
-        '/topic(/:action(/:id))' => array(
-            'controller' => '\Suggestotron\Controller\Topics',
-            'action' => 'list'
-			),
-		'/vote(/:action(/:id))' => array(
-	        'controller' => '\Suggestotron\Controller\Votes'
-			),
 		'/:controller(/:action(/:id))' => array(
-            'controller' => '\Suggestotron\Controller\:controller',
+            'controller' => '\Lib\Controller\:controller',
             'action' => 'index'
 			)
 		)
